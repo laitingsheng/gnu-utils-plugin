@@ -13,6 +13,11 @@ function _wrap_colour() {
     done
 }
 
+function _augment_gnu_ls() {
+    ls="${1:-}ls"
+    alias ${ls}="${ls} --color=auto --group-directories-first"
+}
+
 function _ls_aliases() {
     prefix=${1:-}
     ls="${prefix}ls"
@@ -30,12 +35,14 @@ case $OSTYPE in
         _ls_aliases
 
         _dircolors "$(brew --prefix)/bin/gdircolors"
-        _wrap_colour g ls dir vdir grep egrep fgrep
+        _wrap_colour g dir vdir grep egrep fgrep
+        _augment_gnu_ls g
         _ls_aliases g
         ;;
     linux*)
         _dircolors '/usr/bin/dircolors'
-        _wrap_colour '' ls dir vdir grep egrep fgrep
+        _wrap_colour '' dir vdir grep egrep fgrep
+        _augment_gnu_ls
         _ls_aliases
         ;;
     *)
