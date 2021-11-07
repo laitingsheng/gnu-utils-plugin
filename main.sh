@@ -44,6 +44,12 @@ case $OSTYPE in
         _wrap_colour '' dir vdir grep egrep fgrep
         _augment_gnu_ls
         _ls_aliases
+
+        case $(uname -r) in
+            *-microsoft-standard-WSL2)
+                PATH="$PATH:/mnt/c/Windows/System32:/mnt/c/Windows"
+                ;;
+        esac
         ;;
     *)
         echo "system-utils: cannot recognise the OS type (${OSTYPE:-unknown})" >&2
